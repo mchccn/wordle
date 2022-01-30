@@ -11,13 +11,10 @@ use std::path::PathBuf;
 type Wordle = [[char; 5]; 6];
 
 fn words() -> Vec<String> {
-    read_to_string(
-        canonicalize(PathBuf::from("words.txt")).expect("Unable to canonicalize file path"),
-    )
-    .expect("Unable to read words file")
-    .lines()
-    .map(|x| String::from(x))
-    .collect::<Vec<String>>()
+    include_str!("../words.txt")
+        .lines()
+        .map(|x| String::from(x))
+        .collect::<Vec<String>>()
 }
 
 fn random_word(words: Vec<String>) -> String {
@@ -48,7 +45,11 @@ fn print_wordle(wordle: Wordle, word: &String) {
 
             println!(
                 "┃  {} ┃",
-                colored.into_iter().map(|x| format!("{} ", x)).collect::<Vec<String>>().join(""),
+                colored
+                    .into_iter()
+                    .map(|x| format!("{} ", x))
+                    .collect::<Vec<String>>()
+                    .join(""),
             );
         } else {
             println!("┃  _ _ _ _ _  ┃");
@@ -102,7 +103,7 @@ fn main() {
         } else {
             println!();
         }
- 
+
         guess = get_guess(&mut iterator, wordle, &word);
 
         clear().expect("Failed to clear screen");
@@ -134,6 +135,9 @@ fn main() {
             format!("Correct! You guessed the word in {} guesses.", guesses).green()
         );
     } else {
-        println!("{}", "You didn't guess the word in 6 attempts. Better luck next time!".red());
+        println!(
+            "{}",
+            format!("You didn't guess the word in 6 attempts.\nThe word was \"{}\".\nBetter luck next time!", word).red()
+        );
     }
 }
