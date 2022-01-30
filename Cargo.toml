@@ -5,6 +5,7 @@ edition = "2018"
 readme = "README.md"
 license = "MIT"
 author = "cursorsdottsx"
+description = "Play the popular Wordle word game as a CLI."
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
