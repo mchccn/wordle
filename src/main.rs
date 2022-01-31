@@ -129,7 +129,7 @@ fn main() {
 
     if guesses == 1 {
         println!("{}", "Correct! How did you do it?".green());
-    } else if guesses < 6 {
+    } else if guesses < 6 || guess == word {
         println!(
             "{}",
             format!("Correct! You guessed the word in {} guesses.", guesses).green()
